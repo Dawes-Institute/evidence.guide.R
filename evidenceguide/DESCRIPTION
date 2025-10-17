@@ -1,0 +1,33 @@
+Package: evidenceguide
+Type: Package
+Title: Client for the Evidence Guide API
+Version: 0.0.0.9000
+Authors@R: 
+    person(given = "Evidence Guide",
+           family = "Team",
+           role = c("aut", "cre"),
+           email = "support@evidence.guide")
+Description: Provides a thin client over the Evidence Guide API for uploading PDF
+    articles, polling for processing status, and exporting study-level data in
+    tidy format suitable for meta-analytic workflows.
+License: MIT + file LICENSE
+Encoding: UTF-8
+Roxygen: list(markdown = TRUE)
+RoxygenNote: 7.2.3
+Depends: R (>= 4.1)
+Imports:
+    cli,
+    httr2,
+    jsonlite,
+    progress,
+    purrr,
+    rlang,
+    tibble,
+    dplyr
+Suggests:
+    withr,
+    testthat (>= 3.1.10),
+    tcltk,
+    rstudioapi
+Config/testthat/edition: 3
+LazyData: true

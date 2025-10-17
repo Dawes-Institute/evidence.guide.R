@@ -1,0 +1,39 @@
+---
+title: "Quickstart: From PDFs to Studies"
+author: "Evidence Guide Team"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Quickstart: From PDFs to Studies}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(comment = "#>", collapse = TRUE)
+```
+
+The `evidenceguide` package streamlines end-to-end PDF processing against the
+Evidence Guide API.
+
+## Installation
+
+```r
+# install.packages("evidenceguide")
+```
+
+## Basic workflow
+
+```r
+library(evidenceguide)
+
+eg_set_api_key("ck_XXXXXXXXXXXXXXXX")
+
+pdfs <- eg_select_files()
+jobs <- eg_upload(pdfs)
+results <- eg_wait(jobs$job_id)
+raw <- purrr::set_names(results$result, results$job_id)
+studies <- as_studies_df(raw)
+```
+
+Use `eg_process()` for a one-call pipeline that combines file selection,
+upload, polling, and tidying.

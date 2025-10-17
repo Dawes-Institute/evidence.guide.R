@@ -1,0 +1,67 @@
+{
+  "status": "succeeded",
+  "result": {
+    "metadata": {
+      "title": "Intervention Improves Outcomes",
+      "doi": "10.1234/example.doi",
+      "year": 2024,
+      "journal": "Journal of Examples"
+    },
+    "studies": [
+      {
+        "study_number": 1,
+        "design": "between",
+        "n": 120,
+        "arms": ["treatment", "control"],
+        "hypotheses": [
+          "H1: Intervention group outperforms control"
+        ],
+        "tests": [
+          {
+            "stat": "t",
+            "value": 2.31,
+            "df": [118],
+            "p": 0.023,
+            "effect_size": {
+              "type": "d",
+              "value": 0.42,
+              "ci": [0.12, 0.71]
+            },
+            "measure": "primary_outcome"
+          }
+        ],
+        "excerpts": [
+          { "text": "Significant difference observed.", "page": 5 }
+        ],
+        "confidence": 0.82
+      },
+      {
+        "study_number": 2,
+        "design": "within",
+        "n": 48,
+        "arms": ["pre", "post"],
+        "hypotheses": [
+          "H2: Post scores exceed pre scores"
+        ],
+        "tests": [
+          {
+            "stat": "t",
+            "value": -3.12,
+            "df": [47],
+            "p": 0.003,
+            "effect_size": {
+              "type": "d",
+              "value": -0.65,
+              "ci": [-0.90, -0.40]
+            },
+            "measure": "secondary_outcome"
+          }
+        ],
+        "excerpts": [
+          { "text": "Participants improved after training.", "page": 8 }
+        ],
+        "confidence": 0.75
+      }
+    ]
+  }
+}
