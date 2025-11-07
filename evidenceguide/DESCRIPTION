@@ -23,7 +23,8 @@ Imports:
     purrr,
     rlang,
     tibble,
-    dplyr
+    dplyr,
+    curl
 Suggests:
     withr,
     testthat (>= 3.1.10),

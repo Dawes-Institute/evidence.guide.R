@@ -55,11 +55,13 @@ eg_process <- function(files = NULL,
     error = ordered$error
   )
 
-  success_idx <- which(jobs$status == "succeeded")
+  success_idx <- which(jobs$status %in% c("succeeded", "completed"))
   json <- if (!length(success_idx)) {
     list()
   } else {
-    purrr::set_names(jobs$result[success_idx], jobs$job_id[success_idx])
+    # Unwrap the nested list structure from eg_wait
+    unwrapped <- lapply(jobs$result[success_idx], function(r) if (is.list(r) && length(r) == 1) r[[1]] else r)
+    purrr::set_names(unwrapped, jobs$job_id[success_idx])
   }
 
   studies <- as_studies_df(json)

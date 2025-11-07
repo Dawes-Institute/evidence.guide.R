@@ -31,7 +31,7 @@ eg_fetch <- function(job_ids,
     }
   })
 
-  do.call(tibble::bind_rows, rows)
+  dplyr::bind_rows(rows)
 }
 
 eg_wait <- function(job_ids,
@@ -109,7 +109,7 @@ eg_wait <- function(job_ids,
       statuses[i] <- eg_coalesce(poll$status, "unknown")
       last_known[i] <- statuses[i]
 
-      if (identical(statuses[i], "succeeded")) {
+      if (identical(statuses[i], "succeeded") || identical(statuses[i], "completed")) {
         results[[i]] <- list(poll$result)
         errors[[i]] <- list(NULL)
         done[i] <- TRUE
@@ -145,19 +145,13 @@ eg_wait <- function(job_ids,
 eg_poll_once <- function(job_id,
                          api_key = eg_get_api_key(),
                          base_url = eg_get_base_url()) {
-  req <- eg_request(c("result", job_id), api_key = api_key, base_url = base_url)
+  req <- eg_request(c("v1", "result", job_id), api_key = api_key, base_url = base_url)
   resp <- eg_req_perform(req)
   eg_resp_check(resp)
   body <- eg_resp_json(resp)
 
-  status <- eg_coalesce(body$status, body$state)
-
+  status <- body$status
   payload <- body$result
-  if (is.null(payload)) {
-    payload <- list()
-    if (!is.null(body$metadata)) payload$metadata <- body$metadata
-    if (!is.null(body$studies)) payload$studies <- body$studies
-  }
 
   list(
     status = status,

@@ -23,10 +23,12 @@
   opt
 }
 
-eg_coalesce <- function(x, fallback) {
-  if (is.null(x) || length(x) == 0) {
-    fallback
-  } else {
-    x
+eg_coalesce <- function(...) {
+  args <- list(...)
+  for (arg in args) {
+    if (!is.null(arg) && length(arg) > 0) {
+      return(arg)
+    }
   }
+  NULL
 }

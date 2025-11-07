@@ -44,9 +44,9 @@ eg_upload <- function(files,
   }
 
   results <- purrr::map(paths, function(path) {
-    req <- eg_request("parse", api_key = api_key, base_url = base_url)
+    req <- eg_request(c("v1", "parse"), api_key = api_key, base_url = base_url)
     req <- do.call(httr2::req_url_query, c(list(req), query))
-    req <- httr2::req_body_multipart(req, file = httr2::upload_file(path))
+    req <- httr2::req_body_multipart(req, file = curl::form_file(path))
     resp <- eg_req_perform(req)
     eg_resp_check(resp)
     body <- eg_resp_json(resp)
@@ -63,5 +63,5 @@ eg_upload <- function(files,
     )
   })
 
-  do.call(tibble::bind_rows, results)
+  dplyr::bind_rows(results)
 }
