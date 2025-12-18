@@ -7,13 +7,14 @@ eg_process <- function(files = NULL,
                        interval = 1.5,
                        timeout = 1800,
                        progress = TRUE,
+                       multi = TRUE,
                        api_key = eg_get_api_key(),
                        base_url = eg_get_base_url()) {
   mode <- match.arg(mode)
 
   chosen_files <- files
   if (is.null(chosen_files)) {
-    chosen_files <- eg_select_files()
+    chosen_files <- eg_select_files(multi = multi)
   }
 
   if (!length(chosen_files)) {
