@@ -5,7 +5,7 @@ eg_select_files <- function(multi = TRUE) {
   paths <- character()
 
   if (multi && eg_has_tcltk()) {
-    paths <- tcltk::tk_choose.files(multiple = TRUE, caption = "Select PDF files for Evidence Guide")
+    paths <- tcltk::tk_choose.files(multi = TRUE, caption = "Select PDF files for Evidence Guide")
   } else if (.Platform$OS.type == "windows") {
     paths <- utils::choose.files(multi = multi, caption = "Select PDF files for Evidence Guide")
   } else if (eg_can_use_rstudioapi()) {
