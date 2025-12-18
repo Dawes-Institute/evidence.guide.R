@@ -16,7 +16,7 @@ eg_select_files <- function(multi = TRUE) {
   } else {
     cli::cli_inform(c("i" = "Select PDF files. Cancel the dialog when finished."))
     repeat {
-      choice <- tryCatch(utils::file.choose(new = length(paths) > 0), error = function(e) NA_character_)
+      choice <- tryCatch(utils::file.choose(new = FALSE), error = function(e) NA_character_)
       if (is.na(choice) || !nzchar(choice)) {
         break
       }
