@@ -4,11 +4,13 @@ eg_select_files <- function(multi = TRUE) {
   multi <- isTRUE(multi)
   paths <- character()
 
-  if (multi && eg_has_tcltk()) {
+  if (multi && eg_has_tcltk() && .Platform$OS.type == "windows") {
+    # tcltk multi-select works reliably on Windows but not macOS
     paths <- tcltk::tk_choose.files(multi = TRUE, caption = "Select PDF files for Evidence Guide")
   } else if (.Platform$OS.type == "windows") {
     paths <- utils::choose.files(multi = multi, caption = "Select PDF files for Evidence Guide")
-  } else if (eg_can_use_rstudioapi()) {
+  } else if (!multi && eg_can_use_rstudioapi()) {
+    # rstudioapi::selectFile only supports single file selection
     selected <- rstudioapi::selectFile(caption = "Select PDF file for Evidence Guide")
     paths <- if (!is.null(selected)) selected else character()
   } else {
