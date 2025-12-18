@@ -51,7 +51,8 @@ eg_upload <- function(files,
     eg_resp_check(resp)
     body <- eg_resp_json(resp)
 
-    job_id <- body$job_id
+    # Handle both fresh uploads (job_id at top level) and cached results (job_id in paper)
+    job_id <- if (!is.null(body$job_id)) body$job_id else body$paper$job_id
     if (is.null(job_id)) {
       rlang::abort("Evidence Guide response did not include a `job_id`.", class = c("eg_error", "eg_error_protocol"))
     }
