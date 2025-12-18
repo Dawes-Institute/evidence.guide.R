@@ -4,8 +4,8 @@ eg_select_files <- function(multi = TRUE) {
   multi <- isTRUE(multi)
   paths <- character()
 
-  if (multi && eg_has_tcltk() && .Platform$OS.type == "windows") {
-    # tcltk multi-select works reliably on Windows but not macOS
+  if (multi && eg_has_tcltk()) {
+    # Use Cmd+Click to select multiple files in the dialog
     paths <- tcltk::tk_choose.files(multi = TRUE, caption = "Select PDF files for Evidence Guide")
   } else if (.Platform$OS.type == "windows") {
     paths <- utils::choose.files(multi = multi, caption = "Select PDF files for Evidence Guide")
